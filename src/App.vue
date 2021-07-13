@@ -1,32 +1,37 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div id="app">         
+    <navbar class="sticky-top"  style="z-index:100;"/>                
+    <router-view/>                
   </div>
 </template>
+<script>
+import Navbar from "./components/Navbar.vue"
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+export default {
+   mounted() {      
+      if (localStorage.getItem('cart')===null) {
+        localStorage.setItem('cart','[]')        
+      }  
+      var x = JSON.parse(localStorage.cart) 
+      this.$store.commit('getdatafromlocalstorage', x);
+               
+    },
+  components: {
+    Navbar,
+    },
+      
+    
+    
+}
+</script>
+<style >
+.row{
+  padding: 0%;
+  margin: 0%;
+  padding-left: 0%;
+  padding-right: 0%;
 }
 
-#nav {
-  padding: 30px;
-}
+ 
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
